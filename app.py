@@ -11,6 +11,7 @@ Created on Mon Jan 21 16:13:28 2019
 from flask import Flask, render_template
 import requests
 import random
+from config import *
 
 
 
@@ -20,7 +21,7 @@ def hello():
     
     ####NAME API###
     endpoint_name= "https://www.behindthename.com/api/random.json"
-    payload={"key": "ma115061677", "number": "1"}  
+    payload={"key": config.name_api_key , "number": "1"}  
     
     name_response = requests.get(endpoint_name, params=payload)
     
@@ -81,7 +82,7 @@ def hello():
     ##Animal API####
     try:
         pet_endpoint="http://api.petfinder.com/pet.getRandom?&"
-        payload={"key": "c8b27e4f31d8327cbd39cef7e45e6f54", "format": "json", "output": "basic"}
+        payload={"key": config.pet_api_key, "format": "json", "output": "basic"}
         
         pet_response=requests.get(pet_endpoint, params=payload)
         
@@ -118,7 +119,7 @@ def hello():
     
     ###link it to weather API###
     endpoint_weather="http://api.openweathermap.org/data/2.5/weather"
-    payload={"appid":"18635d71a1658583f1043aee10a499d1",  "q": town_name}
+    payload={"appid": config.weather_api_key,  "q": town_name}
     
     response=requests.get(endpoint_weather, params=payload)
     data=response.json()
@@ -133,7 +134,7 @@ def hello():
     
     #print(template)  
    # return "<h1>Refresh for your fairytale!</h1>" + template
-    return render_template("index.html", title="fairytale generator", **locals())
+    return render_template("index.html", title="Fairytale Generator", **locals())
     
     
    
